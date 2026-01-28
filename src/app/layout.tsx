@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Rubik, Karantina, Secular_One } from "next/font/google";
 import "./globals.css";
+import { CartProvider } from "@/context/CartContext";
+import Cart from "@/components/Cart";
 
 const rubik = Rubik({
   subsets: ["hebrew", "latin"],
@@ -38,7 +40,10 @@ export default function RootLayout({
       <body
         className={`${rubik.variable} ${secularOne.variable} ${karantina.variable} antialiased`}
       >
-        {children}
+        <CartProvider>
+          {children}
+          <Cart />
+        </CartProvider>
       </body>
     </html>
   );

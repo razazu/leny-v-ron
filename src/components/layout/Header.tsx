@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { CartButton } from "@/components/Cart";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -51,6 +52,7 @@ export default function Header() {
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-full" />
               </a>
             ))}
+            <CartButton />
             <a
               href="#contact"
               className="btn-primary text-sm py-2 px-6"
@@ -59,12 +61,14 @@ export default function Header() {
             </a>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 text-chocolate"
-            aria-label="תפריט"
-          >
+          {/* Mobile: Cart + Menu Button */}
+          <div className="flex items-center gap-2 md:hidden">
+            <CartButton />
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2 text-chocolate"
+              aria-label="תפריט"
+            >
             <svg
               className="w-6 h-6"
               fill="none"
@@ -88,6 +92,7 @@ export default function Header() {
               )}
             </svg>
           </button>
+          </div>
         </nav>
 
         {/* Mobile Menu */}
