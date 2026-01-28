@@ -26,8 +26,8 @@ const karantina = Karantina({
 });
 
 export const metadata: Metadata = {
-  title: "Leny V Ron - עוגות קונטידור מעוצבות",
-  description: "עוגות קונטידור מעוצבות ומעולות מ-Leny V Ron",
+  title: "Leny V Ron - משווק סיטונאי | עוגות וקינוחים",
+  description: "משווק סיטונאי בלעדי של עוגות קונטידור, קינוחים ומאפים. קו חלוקה ארצי לבתי קפה, מסעדות וקייטרינג.",
 };
 
 export default function RootLayout({

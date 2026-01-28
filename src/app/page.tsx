@@ -6,19 +6,19 @@ import { catalog } from "@/data/catalog";
 
 const features = [
   {
-    icon: "✨",
-    title: "עיצוב אישי",
-    desc: "כל עוגה מעוצבת במיוחד עבורכם",
+    icon: "🚚",
+    title: "קו חלוקה ארצי",
+    desc: "משלוחים לכל רחבי הארץ ישירות לעסק שלך",
   },
   {
-    icon: "🎂",
-    title: "טעם מושלם",
-    desc: "חומרי גלם איכותיים ומתכונים מנצחים",
+    icon: "📦",
+    title: "מלאי זמין",
+    desc: "מגוון רחב של מוצרים במלאי קבוע",
   },
   {
-    icon: "💝",
+    icon: "🤝",
     title: "שירות אישי",
-    desc: "ליווי צמוד מהתכנון ועד האירוע",
+    desc: "ליווי צמוד ומחירים מיוחדים ללקוחות קבועים",
   },
 ];
 
@@ -41,7 +41,7 @@ export default function Home() {
           {/* Decorative element */}
           <div className="flex items-center justify-center gap-4 mb-6 animate-fade-in">
             <span className="w-12 h-[1px] bg-gold" />
-            <span className="text-gold text-sm tracking-[0.3em]">קונדיטוריה בוטיק</span>
+            <span className="text-gold text-sm tracking-[0.3em]">משווק סיטונאי בלעדי</span>
             <span className="w-12 h-[1px] bg-gold" />
           </div>
 
@@ -55,9 +55,13 @@ export default function Home() {
             עוגות קונטידור מעוצבות
           </p>
 
-          <p className="text-lg md:text-xl text-chocolate/60 max-w-2xl mx-auto mb-12 animate-fade-in-up animate-delay-200">
-            יצירת אמנות מתוקה לרגעים הכי חשובים בחיים
+          <p className="text-lg md:text-xl text-chocolate/60 max-w-2xl mx-auto mb-6 animate-fade-in-up animate-delay-200">
+            קו חלוקה ארצי | מחירי סיטונאות | שירות מקצועי לעסקים
           </p>
+
+          <div className="inline-block px-4 py-2 bg-gold/20 rounded-full mb-8 animate-fade-in-up animate-delay-200">
+            <span className="text-chocolate/80 text-sm font-medium">לקוחות עסקיים בלבד</span>
+          </div>
 
           <div className="flex gap-4 justify-center flex-wrap animate-fade-in-up animate-delay-300">
             <a href="#gallery" className="btn-primary">
@@ -114,27 +118,27 @@ export default function Home() {
 
           <div className="glass-card rounded-[2.5rem] p-12 md:p-16 text-center">
             <p className="text-xl md:text-2xl text-chocolate/80 leading-relaxed mb-8">
-              ב-Leny V Ron אנחנו מאמינים שכל אירוע ראוי לעוגה שתספר את הסיפור שלו.
+              Leny V Ron - משווק סיטונאי בלעדי של מוצרי קונדיטוריה איכותיים.
             </p>
             <p className="text-lg text-chocolate/60 leading-relaxed mb-8">
-              אנו יוצרים עוגות קונטידור מעוצבות בקפידה, משלבים טעמים ייחודיים עם
-              עיצוב אמנותי ברמה הגבוהה ביותר. כל עוגה נוצרת מחומרי גלם איכותיים,
-              עם תשומת לב לכל פרט קטן.
+              אנחנו מפיצים מגוון רחב של עוגות, קינוחים ומאפים מעוצבים מהקונדיטוריות
+              המובילות בארץ. קו חלוקה ארצי, מלאי זמין ומחירי סיטונאות מיוחדים
+              לבתי קפה, מסעדות, קייטרינג ועסקים.
             </p>
-            <div className="flex items-center justify-center gap-8 text-gold">
+            <div className="flex items-center justify-center gap-8 text-gold flex-wrap">
               <div className="text-center">
-                <div className="text-4xl font-heading mb-1">500+</div>
-                <div className="text-sm text-chocolate/50">עוגות מעוצבות</div>
+                <div className="text-4xl font-heading mb-1">100+</div>
+                <div className="text-sm text-chocolate/50">מוצרים בקטלוג</div>
               </div>
-              <div className="w-[1px] h-12 bg-gold/30" />
+              <div className="w-[1px] h-12 bg-gold/30 hidden sm:block" />
               <div className="text-center">
                 <div className="text-4xl font-heading mb-1">10+</div>
                 <div className="text-sm text-chocolate/50">שנות ניסיון</div>
               </div>
-              <div className="w-[1px] h-12 bg-gold/30" />
+              <div className="w-[1px] h-12 bg-gold/30 hidden sm:block" />
               <div className="text-center">
-                <div className="text-4xl font-heading mb-1">100%</div>
-                <div className="text-sm text-chocolate/50">שביעות רצון</div>
+                <div className="text-4xl font-heading mb-1">🚚</div>
+                <div className="text-sm text-chocolate/50">משלוח ארצי</div>
               </div>
             </div>
           </div>
@@ -245,7 +249,7 @@ export default function Home() {
 
           <div className="glass-card rounded-2xl p-6 md:p-10">
             <p className="text-center text-chocolate/60 text-sm mb-8">
-              מוכנים להזמין? צרו איתנו קשר
+              מעוניינים לפתוח חשבון לקוח? צרו איתנו קשר לפרטים ומחירון
             </p>
 
             {/* Contact info - compact */}
