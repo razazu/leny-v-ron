@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { catalog, getCategoryBySlug, getAllCategorySlugs } from "@/data/catalog";
-import ProductCard from "@/components/ProductCard";
+import CategoryFilter from "@/components/CategoryFilter";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
@@ -77,30 +77,16 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             </div>
           </div>
 
-          {/* Subcategories */}
-          {categoryData.subcategories.length > 0 && (
-            <div className="flex flex-wrap gap-2 mt-6">
-              {categoryData.subcategories.map((sub, index) => (
-                <span
-                  key={index}
-                  className="px-3 py-1 bg-white/70 text-chocolate/70 text-sm rounded-full"
-                >
-                  {sub}
-                </span>
-              ))}
-            </div>
-          )}
         </div>
       </section>
 
-      {/* Products Grid */}
+      {/* Products Grid with Filters */}
       <section className="py-16 px-4">
         <div className="container mx-auto max-w-7xl">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-            {categoryData.products.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
+          <CategoryFilter
+            products={categoryData.products}
+            subcategories={categoryData.subcategories}
+          />
 
           {/* Order CTA */}
           <div className="mt-16 text-center">

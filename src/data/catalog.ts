@@ -98,35 +98,6 @@ export const catalog: Category[] = [
       { id: "cookie-8", name: "עוגיות שקדים ללא גלוטן", description: "עוגיות שקדים פריכות ללא גלוטן", price: 10, tags: ["ללא גלוטן", "שקדים"] },
     ],
   },
-  {
-    slug: "breads",
-    name: "לחמים",
-    icon: "🍞",
-    description: "לחמים טריים ואיכותיים",
-    subcategories: [],
-    products: [
-      { id: "bread-1", name: "חלה מתוקה", description: "חלה רכה ומתוקה לשבת", price: 28, tags: ["שבת", "פופולרי"] },
-      { id: "bread-2", name: "לחם מחמצת", description: "לחם מחמצת אותנטי", price: 35, tags: ["מחמצת"] },
-      { id: "bread-3", name: "פוקצ'ה", description: "פוקצ'ה איטלקית עם זיתים ורוזמרין", price: 32, tags: ["איטלקי"] },
-      { id: "bread-4", name: "באגט צרפתי", description: "באגט פריך בסגנון צרפתי", price: 15, tags: ["צרפתי"] },
-      { id: "bread-5", name: "לחם כפרי", description: "לחם כפרי עם קרום פריך", price: 25, tags: ["קלאסי"] },
-    ],
-  },
-  {
-    slug: "catering",
-    name: "מגשי אירוח",
-    icon: "🍽️",
-    description: "מגשים מושלמים לאירועים",
-    subcategories: [],
-    products: [
-      { id: "catering-1", name: "מגש מאפים מתוקים", description: "מבחר מאפים מתוקים - 20 יח'", priceFrom: 180, tags: ["מתוק", "פופולרי"] },
-      { id: "catering-2", name: "מגש קינוחים אישיים", description: "קינוחים במגוון טעמים - 15 יח'", priceFrom: 220, tags: ["קינוחים"] },
-      { id: "catering-3", name: "מגש מיני סנדוויצ'ים", description: "סנדוויצ'ים במגוון מילויים - 30 יח'", priceFrom: 150, tags: ["מלוח"] },
-      { id: "catering-4", name: "מגש קיש מגוון", description: "קישים חתוכים במגוון טעמים", priceFrom: 200, tags: ["קיש", "מלוח"] },
-      { id: "catering-5", name: "מגש עוגיות מעורב", description: "עוגיות במגוון סוגים - 40 יח'", priceFrom: 120, tags: ["עוגיות"] },
-      { id: "catering-6", name: "מגש VIP", description: "מבחר פרימיום של מאפים וקינוחים", priceFrom: 350, tags: ["פרימיום", "פופולרי"] },
-    ],
-  },
 ];
 
 export function getCategoryBySlug(slug: string): Category | undefined {
