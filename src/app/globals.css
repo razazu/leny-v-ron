@@ -35,12 +35,12 @@ body {
 
 /* Typography */
 .font-heading-he {
-  font-family: var(--font-heading-he);
+  font-family: var(--font-secular);
   font-weight: 400;
 }
 
 .font-heading {
-  font-family: var(--font-heading);
+  font-family: var(--font-karantina);
 }
 
 /* Glass card with warm tones */
