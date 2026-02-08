@@ -1,7 +1,7 @@
 backend:
   name: github
   repo: razazu/leny-v-ron
-  branch: main
+  branch: master
   base_url: https://leny-v-ron.vercel.app
   auth_endpoint: /api/auth
 
