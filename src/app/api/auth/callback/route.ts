@@ -11,7 +11,10 @@ export async function GET(request: NextRequest) {
   const clientSecret = process.env.GITHUB_CLIENT_SECRET;
 
   if (!clientId || !clientSecret) {
-    return NextResponse.json({ error: "Missing GitHub OAuth credentials" }, { status: 500 });
+    return new NextResponse(
+      `<html><body><h2>Missing env vars</h2><p>CLIENT_ID: ${clientId ? "set" : "MISSING"}</p><p>CLIENT_SECRET: ${clientSecret ? "set" : "MISSING"}</p></body></html>`,
+      { headers: { "Content-Type": "text/html" } }
+    );
   }
 
   const tokenResponse = await fetch("https://github.com/login/oauth/access_token", {
@@ -31,25 +34,41 @@ export async function GET(request: NextRequest) {
 
   if (data.error) {
     return new NextResponse(
-      `<html><body><script>
-        window.opener.postMessage(
-          'authorization:github:error:${JSON.stringify(data)}',
-          window.location.origin
-        );
-        window.close();
-      </script></body></html>`,
+      `<html><body>
+        <h2>OAuth Error</h2>
+        <p>${data.error}: ${data.error_description || ""}</p>
+        <script>
+          setTimeout(function() {
+            if (window.opener) {
+              window.opener.postMessage(
+                'authorization:github:error:${JSON.stringify(data).replace(/'/g, "\\'")}',
+                window.location.origin
+              );
+            }
+          }, 3000);
+        </script>
+      </body></html>`,
       { headers: { "Content-Type": "text/html" } }
     );
   }
 
+  const token = data.access_token;
+
   return new NextResponse(
-    `<html><body><script>
-      window.opener.postMessage(
-        'authorization:github:success:${JSON.stringify({ token: data.access_token, provider: "github" })}',
-        window.location.origin
-      );
-      window.close();
-    </script></body></html>`,
+    `<html><body>
+      <p>Authenticating...</p>
+      <script>
+        (function() {
+          var msg = 'authorization:github:success:{"token":"${token}","provider":"github"}';
+          if (window.opener) {
+            window.opener.postMessage(msg, window.location.origin);
+            setTimeout(function() { window.close(); }, 500);
+          } else {
+            document.body.innerHTML = '<h2>Success but no opener window</h2><p>Token received. Close this tab and go back to /admin</p>';
+          }
+        })();
+      </script>
+    </body></html>`,
     { headers: { "Content-Type": "text/html" } }
   );
 }
