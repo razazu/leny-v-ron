@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import { Product } from "@/data/catalog";
+import { SanityProduct as Product } from "@/sanity/queries";
 
 interface CartItem {
   product: Product;

@@ -1,6 +1,6 @@
 "use client";
 
-import { Product } from "@/data/catalog";
+import { SanityProduct as Product } from "@/sanity/queries";
 import { useCart } from "@/context/CartContext";
 
 interface ProductCardProps {

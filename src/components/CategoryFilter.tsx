@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Product } from "@/data/catalog";
+import { SanityProduct as Product } from "@/sanity/queries";
 import ProductCard from "./ProductCard";
 
 interface CategoryFilterProps {
