@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useState, useMemo } from "react";
+import { useSearchParams } from "next/navigation";
 import { SanityCategory, SanityProduct } from "@/sanity/queries";
 import ProductCard from "./ProductCard";
 
@@ -11,7 +11,6 @@ interface CatalogViewProps {
 
 export default function CatalogView({ categories }: CatalogViewProps) {
   const searchParams = useSearchParams();
-  const router = useRouter();
   const categoryParam = searchParams.get("category");
   const [activeCategory, setActiveCategory] = useState<string | null>(categoryParam);
   const [search, setSearch] = useState("");
@@ -23,18 +22,19 @@ export default function CatalogView({ categories }: CatalogViewProps) {
   }, [categories]);
 
   const filteredProducts = useMemo(() => {
-    let products = activeCategory
-      ? allProducts.filter((p) => p.categorySlug === activeCategory)
-      : allProducts;
+    let products = allProducts;
 
     if (search.trim()) {
       const q = search.trim().toLowerCase();
       products = products.filter(
         (p) =>
-          p.name.toLowerCase().includes(q) ||
+          p.name?.toLowerCase().includes(q) ||
           p.description?.toLowerCase().includes(q) ||
+          p.categoryName?.toLowerCase().includes(q) ||
           p.tags?.some((t) => t.toLowerCase().includes(q))
       );
+    } else if (activeCategory) {
+      products = products.filter((p) => p.categorySlug === activeCategory);
     }
 
     return products;
@@ -49,7 +49,10 @@ export default function CatalogView({ categories }: CatalogViewProps) {
             type="text"
             placeholder="חיפוש מוצרים..."
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => {
+              setSearch(e.target.value);
+              if (e.target.value.trim()) setActiveCategory(null);
+            }}
             className="w-full px-5 py-3 pr-12 rounded-full border border-chocolate/15 bg-white text-chocolate placeholder:text-chocolate/40 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/30 text-sm"
           />
           <svg
