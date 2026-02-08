@@ -30,39 +30,36 @@ export async function GET(request: NextRequest) {
   const data = await tokenResponse.json();
 
   if (data.error) {
-    return NextResponse.redirect(
-      new URL(`/admin?error=${encodeURIComponent(data.error_description || data.error)}`, request.url)
+    const errorMsg = JSON.stringify(data).replace(/\\/g, "\\\\").replace(/'/g, "\\'");
+    return new NextResponse(
+      `<html><body><script>
+        (function() {
+          if (window.opener) {
+            window.opener.postMessage(
+              'authorization:github:error:${errorMsg}',
+              document.location.origin
+            );
+          }
+        })();
+      </script></body></html>`,
+      { headers: { "Content-Type": "text/html; charset=utf-8" } }
     );
   }
 
   const token = data.access_token;
+  const provider = "github";
 
-  // Try popup postMessage first, fallback to redirect
   return new NextResponse(
-    `<html><body>
-      <p>מתחבר...</p>
-      <script>
-        (function() {
-          var token = "${token}";
-          var msg = 'authorization:github:success:{"token":"' + token + '","provider":"github"}';
+    `<html><body><script>
+      (function() {
+        var data = JSON.stringify({ token: "${token}", provider: "${provider}" });
+        var msg = "authorization:${provider}:success:" + data;
 
-          if (window.opener) {
-            window.opener.postMessage(msg, window.location.origin);
-            setTimeout(function() { window.close(); }, 500);
-          } else {
-            // No popup - store token directly and redirect to admin
-            localStorage.setItem('netlify-cms-user', JSON.stringify({
-              token: token,
-              name: '',
-              login: '',
-              avatar_url: '',
-              backendName: 'github'
-            }));
-            window.location.href = '/admin';
-          }
-        })();
-      </script>
-    </body></html>`,
+        if (window.opener) {
+          window.opener.postMessage(msg, document.location.origin);
+        }
+      })();
+    </script></body></html>`,
     { headers: { "Content-Type": "text/html; charset=utf-8" } }
   );
 }

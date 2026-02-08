@@ -8,19 +8,7 @@ export async function GET() {
   <title>Leny V Ron - ניהול תוכן</title>
 </head>
 <body>
-  <script>
-    // Check if user is already authenticated
-    var stored = localStorage.getItem('netlify-cms-user');
-    if (!stored) {
-      // No token - redirect to GitHub OAuth
-      window.location.href = '/api/auth';
-    } else {
-      // Token exists - load CMS
-      var script = document.createElement('script');
-      script.src = 'https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js';
-      document.body.appendChild(script);
-    }
-  </script>
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </body>
 </html>`;
 
