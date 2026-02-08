@@ -11,10 +11,7 @@ export async function GET(request: NextRequest) {
   const clientSecret = process.env.GITHUB_CLIENT_SECRET;
 
   if (!clientId || !clientSecret) {
-    return new NextResponse(
-      `<html><body><h2>Missing env vars</h2><p>CLIENT_ID: ${clientId ? "set" : "MISSING"}</p><p>CLIENT_SECRET: ${clientSecret ? "set" : "MISSING"}</p></body></html>`,
-      { headers: { "Content-Type": "text/html" } }
-    );
+    return NextResponse.json({ error: "Missing GitHub OAuth credentials" }, { status: 500 });
   }
 
   const tokenResponse = await fetch("https://github.com/login/oauth/access_token", {
@@ -33,42 +30,39 @@ export async function GET(request: NextRequest) {
   const data = await tokenResponse.json();
 
   if (data.error) {
-    return new NextResponse(
-      `<html><body>
-        <h2>OAuth Error</h2>
-        <p>${data.error}: ${data.error_description || ""}</p>
-        <script>
-          setTimeout(function() {
-            if (window.opener) {
-              window.opener.postMessage(
-                'authorization:github:error:${JSON.stringify(data).replace(/'/g, "\\'")}',
-                window.location.origin
-              );
-            }
-          }, 3000);
-        </script>
-      </body></html>`,
-      { headers: { "Content-Type": "text/html" } }
+    return NextResponse.redirect(
+      new URL(`/admin?error=${encodeURIComponent(data.error_description || data.error)}`, request.url)
     );
   }
 
   const token = data.access_token;
 
+  // Try popup postMessage first, fallback to redirect
   return new NextResponse(
     `<html><body>
-      <p>Authenticating...</p>
+      <p>מתחבר...</p>
       <script>
         (function() {
-          var msg = 'authorization:github:success:{"token":"${token}","provider":"github"}';
+          var token = "${token}";
+          var msg = 'authorization:github:success:{"token":"' + token + '","provider":"github"}';
+
           if (window.opener) {
             window.opener.postMessage(msg, window.location.origin);
             setTimeout(function() { window.close(); }, 500);
           } else {
-            document.body.innerHTML = '<h2>Success but no opener window</h2><p>Token received. Close this tab and go back to /admin</p>';
+            // No popup - store token directly and redirect to admin
+            localStorage.setItem('netlify-cms-user', JSON.stringify({
+              token: token,
+              name: '',
+              login: '',
+              avatar_url: '',
+              backendName: 'github'
+            }));
+            window.location.href = '/admin';
           }
         })();
       </script>
     </body></html>`,
-    { headers: { "Content-Type": "text/html" } }
+    { headers: { "Content-Type": "text/html; charset=utf-8" } }
   );
 }
